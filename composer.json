@@ -1,15 +1,15 @@
 {
-  "name": "swag/plugin-skeleton",
+  "name": "elio/test-plugin",
   "description": "Skeleton plugin",
   "type": "shopware-platform-plugin",
   "license": "MIT",
   "autoload": {
     "psr-4": {
-      "ElioTestPlugin\\": "src/"
+      "Elio\\TestPlugin\\": "src/"
     }
   },
   "extra": {
-    "shopware-plugin-class": "ElioTestPlugin\\ElioTestPlugin",
+    "shopware-plugin-class": "Elio\\TestPlugin\\ElioTestPlugin",
     "label": {
       "de-DE": "Skeleton plugin",
       "en-GB": "Skeleton plugin"
