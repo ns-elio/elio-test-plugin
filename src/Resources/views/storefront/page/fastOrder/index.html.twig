@@ -1,0 +1,74 @@
+{% sw_extends '@Storefront/storefront/base.html.twig' %}
+
+{% block base_content %}
+    <h1 class="">
+        {{ "fastOrder.fastOrderHeader"|trans|sw_sanitize }}
+    </h1>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <div class="row">
+                    <div class="col-9">
+                        Product
+                    </div>
+
+                    <div class="col-3">
+                        Quantity
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% for i in 0..10 %}
+        <div class="row">
+            <div class="col-9">
+                <input type="hidden"
+                       name="redirectTo"
+                       value="frontend.checkout.cart.page">
+
+                <div class="input-group">
+                    <label class="visually-hidden" for="addProductInput">
+                        {{ "checkout.addProductLabel"|trans|sw_sanitize }}
+                    </label>
+
+                    <input type="text"
+                           name="number"
+                           class="form-control"
+                           id="addProductInput"
+                           placeholder="{{ "checkout.addProductPlaceholder"|trans|striptags }}"
+                           aria-label="{{ "checkout.addProductLabel"|trans|striptags }}"
+                           aria-describedby="addProductButton"
+                           required="required">
+                </div>
+            </div>
+            <div class="col-3">
+                <input type="hidden"
+                       name="redirectTo"
+                       value="frontend.checkout.cart.page">
+
+                <div class="input-group">
+                    <label class="visually-hidden" for="addProductInput">
+                        {{ "checkout.addProductLabel"|trans|sw_sanitize }}
+                    </label>
+
+                    <input type="text"
+                           name="number"
+                           class="form-control"
+                           id="addProductInput"
+                           placeholder="{{ "checkout.addProductPlaceholder"|trans|striptags }}"
+                           aria-label="{{ "checkout.addProductLabel"|trans|striptags }}"
+                           aria-describedby="addProductButton"
+                           required="required">
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-5">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+{% endblock %}
