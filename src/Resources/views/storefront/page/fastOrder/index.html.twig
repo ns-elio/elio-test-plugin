@@ -5,70 +5,66 @@
         {{ "fastOrder.fastOrderHeader"|trans|sw_sanitize }}
     </h1>
 
-    <div class="card">
-        <div class="card-body">
-            <div class="card-title">
-                <div class="row">
-                    <div class="col-9">
-                        Product
+    <form method="post">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <div class="row p-2">
+                        <div class="col-9">
+                            Product
+                        </div>
+
+                        <div class="col-3">
+                            Quantity
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
 
-                    <div class="col-3">
-                        Quantity
+        {% for i in 1..5 %}
+            <div class="row p-2">
+                <div class="col-9">
+                    <div class="input-group">
+                        <label class="visually-hidden" for="addProductInput">
+                            {{ "checkout.addProductLabel"|trans|sw_sanitize }}
+                        </label>
+
+                        <input type="text"
+                               name="productId[]"
+                               class="form-control"
+                               id="item-number-{{ i }}"
+                               placeholder="{{ "checkout.addProductPlaceholder"|trans|striptags }}"
+                               aria-label="{{ "checkout.addProductLabel"|trans|striptags }}"
+                               aria-describedby="addProductButton">
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="input-group">
+                        <label class="visually-hidden" for="addProductInput">
+                            {{ "checkout.addProductLabel"|trans|sw_sanitize }}
+                        </label>
+
+                        <input type="text"
+                               name="quantity[]"
+                               class="form-control"
+                               id="item-quantity-{{ i }}"
+                               placeholder="{{ "checkout.addProductPlaceholder"|trans|striptags }}"
+                               aria-label="{{ "checkout.addProductLabel"|trans|striptags }}"
+                               aria-describedby="addProductButton">
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        {% endfor %}
 
-    {% for i in 0..10 %}
-        <div class="row">
-            <div class="col-9">
-                <input type="hidden"
-                       name="redirectTo"
-                       value="frontend.checkout.cart.page">
-
-                <div class="input-group">
-                    <label class="visually-hidden" for="addProductInput">
-                        {{ "checkout.addProductLabel"|trans|sw_sanitize }}
-                    </label>
-
-                    <input type="text"
-                           name="number"
-                           class="form-control"
-                           id="addProductInput"
-                           placeholder="{{ "checkout.addProductPlaceholder"|trans|striptags }}"
-                           aria-label="{{ "checkout.addProductLabel"|trans|striptags }}"
-                           aria-describedby="addProductButton"
-                           required="required">
-                </div>
+        <div class="row p-2">
+            <div class="col-2">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </div>
-            <div class="col-3">
-                <input type="hidden"
-                       name="redirectTo"
-                       value="frontend.checkout.cart.page">
-
-                <div class="input-group">
-                    <label class="visually-hidden" for="addProductInput">
-                        {{ "checkout.addProductLabel"|trans|sw_sanitize }}
-                    </label>
-
-                    <input type="text"
-                           name="number"
-                           class="form-control"
-                           id="addProductInput"
-                           placeholder="{{ "checkout.addProductPlaceholder"|trans|striptags }}"
-                           aria-label="{{ "checkout.addProductLabel"|trans|striptags }}"
-                           aria-describedby="addProductButton"
-                           required="required">
-                </div>
+            <div class="col-2">
+                <button type="button" class="btn btn-secondary">Add Product</button>
             </div>
         </div>
-    {% endfor %}
-
-    <div class="row">
-        <div class="col-5">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
+    </form>
 {% endblock %}
