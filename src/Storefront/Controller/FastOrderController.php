@@ -35,8 +35,12 @@ class FastOrderController extends StorefrontController
     #[Route(path: '/fast_order', name: 'frontend.fast-order.page', methods: ['GET'])]
     public function fastOrderPage(Request $request, RequestDataBag $data, SalesChannelContext $context): Response
     {
+        $inputProducts = $data->get('productId') ? $data->get('productId')->all() : [];
+        $numInputProducts = count(array_filter($inputProducts));
+
         return $this->renderStorefront('@Storefront/storefront/page/fastOrder/index.html.twig', [
             'data' => $data,
+            'numInputProducts' => $numInputProducts,
         ]);
     }
 
