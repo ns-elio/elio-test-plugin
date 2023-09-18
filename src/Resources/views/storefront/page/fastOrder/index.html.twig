@@ -10,46 +10,46 @@
         <div class="card">
             <div class="card-title">
                 <div class="row p-2">
-                    <div class="col-9">
+                    <div class="col-10">
                         {{ "fastOrder.productHeader"|trans|sw_sanitize }}
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         {{ "fastOrder.quantityHeader"|trans|sw_sanitize }}
                     </div>
                 </div>
             </div>
 
             <div class="card-body" id="fast-order-form-body">
-                {% set n_rows = numInputProducts > 5 ? numInputProducts - 1 : 4 %}
+                {% set n_rows = numInputProducts > 1 ? numInputProducts - 1 : 1 %}
 
                 {% for i in 0..n_rows %}
                     <div class="row p-2">
-                        <div class="col-9">
+                        <div class="col-10">
                             <div class="input-group">
-                                <label class="visually-hidden" for="addProductInput">
+                                <label class="visually-hidden">
                                     {{ "fastOrder.addProductLabel"|trans|sw_sanitize }}
                                 </label>
 
                                 <input type="text"
                                        class="form-control"
                                        name="productId[]"
-                                       id="item-number-{{ i }}"
+                                       required
                                        value="{{ data.get('productId').get(i) }}"
                                        placeholder="{{ "fastOrder.addProductPlaceholder"|trans|striptags }}"
                                        aria-label="{{ "fastOrder.addProductLabel"|trans|striptags }}"
                                        aria-describedby="addProductButton">
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <div class="input-group">
-                                <label class="visually-hidden" for="addProductInput">
-                                    {{ "fastOrder.addProductLabel"|trans|sw_sanitize }}
+                                <label class="visually-hidden">
+                                    {{ "fastOrder.addQuantityLabel"|trans|sw_sanitize }}
                                 </label>
 
                                 <input type="number"
                                        class="form-control"
                                        name="quantity[]"
-                                       id="item-quantity-{{ i }}"
+                                       required
                                        value="{{ data.get('quantity').get(i) }}"
                                        placeholder="{{ "fastOrder.addQuantityPlaceholder"|trans|striptags }}"
                                        aria-label="{{ "fastOrder.addQuantityLabel"|trans|striptags }}"
@@ -71,4 +71,41 @@
             </div>
         </div>
     </form>
+
+    <template id="fast-order-row-template">
+        <div class="row p-2">
+            <div class="col-10">
+                <div class="input-group">
+                    <label class="visually-hidden">
+                        {{ "fastOrder.addProductLabel"|trans|sw_sanitize }}
+                    </label>
+
+                    <input type="text"
+                           class="form-control"
+                           name="productId[]"
+                           required
+{#                           value="{{ data.get('productId').get(i) }}"#}
+                           placeholder="{{ "fastOrder.addProductPlaceholder"|trans|striptags }}"
+                           aria-label="{{ "fastOrder.addProductLabel"|trans|striptags }}"
+                           aria-describedby="addProductButton">
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <label class="visually-hidden">
+                        {{ "fastOrder.addQuantityLabel"|trans|sw_sanitize }}
+                    </label>
+
+                    <input type="number"
+                           class="form-control"
+                           name="quantity[]"
+                           required
+{#                           value="{{ data.get('quantity').get(i) }}"#}
+                           placeholder="{{ "fastOrder.addQuantityPlaceholder"|trans|striptags }}"
+                           aria-label="{{ "fastOrder.addQuantityLabel"|trans|striptags }}"
+                           aria-describedby="addQuantityButton">
+                </div>
+            </div>
+        </div>
+    </template>
 {% endblock %}

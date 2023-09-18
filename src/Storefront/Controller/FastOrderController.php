@@ -36,7 +36,7 @@ class FastOrderController extends StorefrontController
     public function fastOrderPage(Request $request, RequestDataBag $data, SalesChannelContext $context): Response
     {
         $inputProducts = $data->get('productId') ? $data->get('productId')->all() : [];
-        $numInputProducts = count(array_filter($inputProducts));
+        $numInputProducts = count($inputProducts);
 
         return $this->renderStorefront('@Storefront/storefront/page/fastOrder/index.html.twig', [
             'data' => $data,
@@ -49,69 +49,94 @@ class FastOrderController extends StorefrontController
     {
         $hasErrors = false;
         $items = [];
-        $products = array_filter($data->get('productId')->all());
-        $quantities = array_filter($data->get('quantity')->all());
+        $productIds = array_filter($data->get('productId')->all());
+        $quantities = $data->get('quantity')->all();
 
-        for($i=0; $i<count($products); $i++) {
-            if(empty($products[$i])) {
-                $message = "Product number is required.";
-                $this->addFlash(self::DANGER, $message);
-                $hasErrors = true;
-                break;
-            }
-
-            if(empty($quantities[$i])) {
-                $message = "Quantity is required.";
-                $this->addFlash(self::DANGER, $message);
-                $hasErrors = true;
-                break;
-            }
-
+        for($i=0; $i<count($productIds); $i++) {
             $items[] = [
-                'productId' => $products[$i],
-                'quantity' => (int) $quantities[$i],
+                'productId' => $productIds[$i],
+                'quantity' => $quantities[$i],
             ];
         }
 
-        if($hasErrors) {
+        $errors = $this->validateInput($items);
+
+        if(!empty($errors)) {
+            foreach($errors as $error) {
+                $this->addFlash(self::DANGER, $error);
+            }
             return $this->forwardToRoute('frontend.fast-order.page');
         }
 
-        foreach($items as &$item) {
+        foreach($items as $item) {
             $criteria = new Criteria();
             $criteria->addFilter(new EqualsFilter('productNumber', $item['productId']));
 
             $product = $this->productRepository->search($criteria, $context->getContext())->first();
 
             if($product === null) {
-                $message = "Product " . $item['productId'] . " does not exist.";
-                $this->addFlash(self::DANGER, $message);
-                $hasErrors = true;
+                $errors[] = "Product " . $item['productId'] . " does not exist.";
+                continue;
             }
 
             if($product->getAvailableStock() < $item['quantity']) {
-                $message = "Product " . $item['productId'] . " only has " . $product->getAvailableStock() . " items available.";
-                $this->addFlash(self::DANGER, $message);
-                $hasErrors = true;
+                $errors[] = "Product " . $item['productId'] . " only has " . $product->getAvailableStock() . " items available.";
             }
-
-            $item['id'] = $product->getId();
         }
 
-        if($hasErrors) {
+        if(!empty($errors)) {
+            foreach($errors as $error) {
+                $this->addFlash(self::DANGER, $error);
+            }
             return $this->forwardToRoute('frontend.fast-order.page');
         }
 
         foreach($items as $item) {
+            $criteria = new Criteria();
+            $criteria->addFilter(new EqualsFilter('productNumber', $item['productId']));
+
+            $product = $this->productRepository->search($criteria, $context->getContext())->first();
+
+            $itemReferencedId = $product->getId();
+
+            // Add these to a database table
+
             $lineItem = $this->factory->create([
                 'type' => LineItem::PRODUCT_LINE_ITEM_TYPE,
-                'referencedId' => $item['id'],
-                'quantity' => $item['quantity'],
+                'referencedId' => $itemReferencedId,
+                'quantity' => (int) $item['quantity'],
             ], $context);
 
             $this->cartService->add($cart, $lineItem, $context);
         }
 
         return $this->redirectToRoute('frontend.checkout.cart.page');
+    }
+
+    private function validateInput($items): ?array
+    {
+        $errors = [];
+
+        $itemIds = array_column($items, 'productId');
+        if(count($itemIds) !== count(array_unique($itemIds))) {
+            $errors[] = "Product list must not contain duplicates.";
+        }
+
+        foreach($items as $item) {
+            if(empty($item['productId'])) {
+                $errors[] = "Product number is required.";
+                break;
+            }
+            if(empty($item['quantity'])) {
+                $errors[] = "Quantity is required.";
+                break;
+            }
+        }
+
+        if(count($errors)) {
+            return $errors;
+        }
+
+        return null;
     }
 }

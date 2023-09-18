@@ -6,11 +6,8 @@ export default class FastOrderPlugin extends Plugin {
     }
 
     onAddLineBtnClick() {
+        let newRow = document.querySelector("#fast-order-row-template").content.cloneNode(true);
         let itemRowContainer = document.querySelector("#fast-order-form-body");
-        let newRow = itemRowContainer.children[0].cloneNode(true);
-
-        newRow.querySelectorAll('input').forEach(n => n.value = '');
-
         itemRowContainer.appendChild(newRow);
     }
 }
