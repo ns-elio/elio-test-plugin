@@ -69,21 +69,16 @@
             <div class="col-auto">
                 <a class="btn header-cart-btn header-actions-btn"
                    href="{{ path('frontend.fast-order.page') }}"
-{#                   data-cart-widget="true"#}
                    title="{{ 'checkout.cartTitle'|trans|striptags }}"
                    aria-label="{{ 'checkout.cartTitle'|trans|striptags }}">
                     <button class="btn account-menu-btn header-actions-btn"
                         type="button"
-{#                        id="accountWidget"#}
                         {# @deprecated tag:v6.6.0 - Registering plugin on selector "data-offcanvas-account-menu" is deprecated. Use "data-account-menu" instead #}
                         {% if feature('v6.6.0.0') %}
                             data-account-menu="true"
                         {% else %}
                             data-offcanvas-account-menu="true"
                         {% endif %}
-{#                        data-bs-toggle="dropdown"#}
-{#                        aria-haspopup="true"#}
-{#                        aria-expanded="false"#}
                         aria-label="{{ "fastOrder.fastOrder"|trans|striptags }}"
                         title="{{ "fastOrder.fastOrder"|trans|striptags }}">
                         {% sw_icon 'list' %}

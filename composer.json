@@ -1,6 +1,6 @@
 {
   "name": "elio/test-plugin",
-  "description": "Skeleton plugin",
+  "description": "Elio Test plugin",
   "type": "shopware-platform-plugin",
   "license": "MIT",
   "autoload": {
@@ -11,8 +11,8 @@
   "extra": {
     "shopware-plugin-class": "Elio\\TestPlugin\\ElioTestPlugin",
     "label": {
-      "de-DE": "Skeleton plugin",
-      "en-GB": "Skeleton plugin"
+      "de-DE": "Elio Test plugin",
+      "en-GB": "Elio Test plugin"
     }
   }
 }

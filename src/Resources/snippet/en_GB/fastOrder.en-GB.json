@@ -1,0 +1,14 @@
+{
+  "fastOrder": {
+    "fastOrderHeader": "Fast Order",
+    "fastOrder": "Fast order",
+    "productHeader": "Product",
+    "quantityHeader": "Quantity",
+    "addProductPlaceholder": "Enter a product number",
+    "addProductLabel": "Add a Product",
+    "addQuantityPlaceholder": "Enter a quantity",
+    "addQuantityLabel": "Add a Quantity",
+    "submit": "Add Items to Cart",
+    "addProduct": "Add Product Row"
+  }
+}
