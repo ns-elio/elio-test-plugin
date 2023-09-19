@@ -5,8 +5,13 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        <service id="Elio\TestPlugin\Core\Content\FastOrderLineItem\FastOrderLineItemDefinition">
+            <tag name="shopware.entity.definition" entity="elio_fast_order_line_item" />
+        </service>
+
         <service id="Elio\TestPlugin\Storefront\Controller\FastOrderController" public="true">
             <argument type="service" id="product.repository"/>
+            <argument type="service" id="elio_fast_order_line_item.repository"/>
             <argument type="service" id="Shopware\Core\Checkout\Cart\SalesChannel\CartService"/>
             <argument type="service" id="Shopware\Core\Checkout\Cart\LineItemFactoryRegistry"/>
             <call method="setContainer">

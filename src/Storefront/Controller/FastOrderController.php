@@ -27,6 +27,7 @@ class FastOrderController extends StorefrontController
      */
     public function __construct(
         private readonly EntityRepository $productRepository,
+        private readonly EntityRepository $fastOrderRepository,
         private readonly CartService $cartService,
         private readonly LineItemFactoryRegistry $factory
     ) {
@@ -47,7 +48,6 @@ class FastOrderController extends StorefrontController
     #[Route(path: '/fast_order', name: 'frontend.fast-order.submit', methods: ['POST'])]
     public function fastOrderSubmit(Request $request, RequestDataBag $data, Cart $cart, SalesChannelContext $context): Response
     {
-        $hasErrors = false;
         $items = [];
         $productIds = array_filter($data->get('productId')->all());
         $quantities = $data->get('quantity')->all();
@@ -99,8 +99,6 @@ class FastOrderController extends StorefrontController
 
             $itemReferencedId = $product->getId();
 
-            // Add these to a database table
-
             $lineItem = $this->factory->create([
                 'type' => LineItem::PRODUCT_LINE_ITEM_TYPE,
                 'referencedId' => $itemReferencedId,
@@ -108,6 +106,21 @@ class FastOrderController extends StorefrontController
             ], $context);
 
             $this->cartService->add($cart, $lineItem, $context);
+
+            $sessionId = $request->getSession()->getId();
+
+            $this->fastOrderRepository->create([
+                [
+                    'dateTime' => new \DateTime(),
+                    'sessionId' => $sessionId,
+                    'quantity' => (int) $item['quantity'],
+                    'product' => [
+                        'id' => $product->getId(),
+                        'version_id' => $product->getVersionId(),
+                    ],
+                    'comment' => '',
+                ]
+            ], $context->getContext());
         }
 
         return $this->redirectToRoute('frontend.checkout.cart.page');
