@@ -21,5 +21,9 @@
                 <argument type="service" id="twig"/>
             </call>
         </service>
+
+        <service id="Elio\TestPlugin\Core\Content\FastOrderLineItem\SalesChannel\FastOrderItemListRoute" public="true">
+            <argument type="service" id="elio_fast_order_line_item.repository"/>
+        </service>
     </services>
 </container>

@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.0",
+  "info": [],
+  "paths": {
+    "/fast-order": {
+      "post": {
+        "tags": [
+          "Fast Order",
+          "Endpoints supporting Criteria "
+        ],
+        "summary": "Fast Order entity endpoint",
+        "description": "Returns a list of fast order line items.",
+        "operationId": "fast-order",
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Criteria"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns a list of fast order line item entities.",
+            "content": {
+              "application/json": {
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    }
+  }
+}
