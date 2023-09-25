@@ -59,7 +59,7 @@ Component.register('fast-order-list', {
     methods: {
         getColumns() {
             return [{
-                property: 'product.name',
+                property: 'name',
                 label: this.$tc('fast-order.list.columnName'),
                 routerLink: 'fast.order.detail',
                 allowResize: true,
@@ -83,7 +83,6 @@ Component.register('fast-order-list', {
             }, {
                 property: 'comment',
                 label: this.$tc('fast-order.list.columnComment'),
-                inlineEdit: 'string',
                 allowResize: true
             }];
         }

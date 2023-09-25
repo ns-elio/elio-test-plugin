@@ -39,6 +39,7 @@ class FastOrderLineItemDefinition extends EntityDefinition
     {
         return new FieldCollection([
             (new IdField('id', 'id'))->addFlags(new Required(), new PrimaryKey()),
+            (new StringField('name', 'name'))->addFlags(new Required()),
             (new DateTimeField('dateTime', 'dateTime'))->addFlags(new Required()),
             (new StringField('sessionId', 'sessionId'))->addFlags(new Required()),
             (new IntField('quantity', 'quantity'))->addFlags(new Required()),

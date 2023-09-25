@@ -17,6 +17,7 @@ class Migration1694699142FastOrderItems extends MigrationStep
         $sql = <<<SQL
             CREATE TABLE IF NOT EXISTS `elio_fast_order_line_item` (
                 `id` BINARY(16) NOT NULL,
+                `name` VARCHAR(255) NOT NULL,
                 `dateTime` DATETIME(3) NULL,
                 `sessionId` VARCHAR(255) NULL,
                 `quantity` INT(11) NULL,

@@ -97,6 +97,7 @@ class FastOrderController extends StorefrontController
 
             $product = $this->productRepository->search($criteria, $context->getContext())->first();
 
+            $productName = $product->getTranslated()['name'];
             $itemReferencedId = $product->getId();
 
             $lineItem = $this->factory->create([
@@ -111,6 +112,7 @@ class FastOrderController extends StorefrontController
 
             $this->fastOrderRepository->create([
                 [
+                    'name' => $productName,
                     'dateTime' => new \DateTime(),
                     'sessionId' => $sessionId,
                     'quantity' => (int) $item['quantity'],

@@ -11,6 +11,8 @@ class FastOrderLineItemEntity extends Entity
 {
     use EntityIdTrait;
 
+    protected string $name;
+
     protected DateTimeInterface $dateTime;
 
     protected string $sessionId;
@@ -24,6 +26,16 @@ class FastOrderLineItemEntity extends Entity
     protected string $productVersionId;
 
     protected ProductEntity $product;
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
 
     public function getDateTime(): DateTimeInterface
     {
