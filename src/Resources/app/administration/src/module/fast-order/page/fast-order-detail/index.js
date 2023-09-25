@@ -42,6 +42,8 @@ Component.register('fast-order-detail', {
 
             this.repository.get(this.$route.params.id, Shopware.Context.api, criteria).then((entity) => {
                 this.item = entity;
+                let date = new Date(this.item.dateTime);
+                this.item.formattedDateTime = date.toLocaleString();
             });
         },
 

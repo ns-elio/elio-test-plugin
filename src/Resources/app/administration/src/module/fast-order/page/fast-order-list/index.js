@@ -43,6 +43,11 @@ Component.register('fast-order-list', {
 
         this.repository.search(criteria, Shopware.Context.api).then((result) => {
             this.items = result;
+
+            this.items.forEach((item) => {
+                let date = new Date(item.dateTime);
+                item.formattedDateTime = date.toLocaleString();
+            });
         });
     },
 
@@ -67,7 +72,7 @@ Component.register('fast-order-list', {
                 label: this.$tc('fast-order.list.columnSessionId'),
                 allowResize: true
             }, {
-                property: 'dateTime',
+                property: 'formattedDateTime',
                 label: this.$tc('fast-order.list.columnDateTime'),
                 allowResize: true
             }, {
