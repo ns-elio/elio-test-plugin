@@ -1,0 +1,27 @@
+{
+  "fast-order": {
+    "general": {
+      "mainMenuItemGeneral": "Fast Order",
+      "descriptionTextModule": "Manage fast order here"
+    },
+    "list": {
+      "columnName": "Item Name",
+      "columnId": "Product ID",
+      "columnQuantity": "Item Quantity",
+      "columnSessionId": "Session ID",
+      "columnDateTime": "Timestamp",
+      "columnComment": "Comment"
+    },
+    "detail": {
+      "productNameLabel": "Item Name",
+      "productIdLabel": "Product ID",
+      "quantityLabel": "Item Quantity",
+      "sessionIdLabel": "Session ID",
+      "dateTimeLabel": "Timestamp",
+      "commentLabel": "Comment",
+      "cancelButtonText": "Cancel",
+      "saveButtonText": "Save",
+      "errorTitle": "Error"
+    }
+  }
+}

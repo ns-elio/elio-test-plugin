@@ -1,0 +1,20 @@
+{% block fast_order_list %}
+    <sw-page class="fast-order-list">
+        {% block fast_order_list_smart_bar_actions %}
+        <template #smart-bar-actions></template>
+        {% endblock %}
+
+        <template #content>
+            {% block fast_order_list_content %}
+            <sw-entity-listing
+                v-if="items"
+                :items="items"
+                :repository="repository"
+                :showSelection="false"
+                :columns="columns"
+                detailRoute="fast.order.detail">
+            </sw-entity-listing>
+            {% endblock %}
+        </template>
+    </sw-page>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% block fast_order_detail %}
+    <sw-page class="fast-order-detail">
+        <template #smart-bar-actions>
+            <sw-button :routerLink="{ name: 'fast.order.list' }">
+                {{ $tc('fast-order.detail.cancelButtonText') }}
+            </sw-button>
+
+            <sw-button-process
+                :isLoading="isLoading"
+                :processSuccess="processSuccess"
+                variant="primary"
+                @process-finish="saveFinish"
+                @click="onClickSave">
+                {{ $tc('fast-order.detail.saveButtonText') }}
+            </sw-button-process>
+        </template>
+
+        <template #content>
+            <sw-card-view>
+                <sw-card v-if="item" :isLoading="isLoading">
+                    <sw-field v-model="item.product.name" :label="$tc('fast-order.detail.productNameLabel')" disabled></sw-field>
+                    <sw-field v-model="item.product.id" :label="$tc('fast-order.detail.productIdLabel')" disabled></sw-field>
+                    <sw-field v-model="item.quantity" :label="$tc('fast-order.detail.quantityLabel')" disabled></sw-field>
+                    <sw-field v-model="item.sessionId" :label="$tc('fast-order.detail.sessionIdLabel')" disabled></sw-field>
+                    <sw-field v-model="item.dateTime" :label="$tc('fast-order.detail.dateTimeLabel')" disabled></sw-field>
+                    <sw-field v-model="item.comment" :label="$tc('fast-order.detail.commentLabel')"></sw-field>
+                </sw-card>
+            </sw-card-view>
+        </template>
+    </sw-page>
+{% endblock %}
