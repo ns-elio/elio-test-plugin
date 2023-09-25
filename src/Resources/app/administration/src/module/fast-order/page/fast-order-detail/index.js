@@ -39,7 +39,6 @@ Component.register('fast-order-detail', {
 
             this.repository = this.repositoryFactory.create('elio_fast_order_line_item');
             criteria.getAssociation('product')
-            criteria.getAssociation('product.parent')
 
             this.repository.get(this.$route.params.id, Shopware.Context.api, criteria).then((entity) => {
                 this.item = entity;

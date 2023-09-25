@@ -1,8 +1,8 @@
 {
   "fast-order": {
     "general": {
-      "mainMenuItemGeneral": "Fast Order",
-      "descriptionTextModule": "Manage fast order here"
+      "mainMenuItemGeneral": "Fast Order Items",
+      "descriptionTextModule": "Manage Fast Order items here"
     },
     "list": {
       "columnName": "Item Name",

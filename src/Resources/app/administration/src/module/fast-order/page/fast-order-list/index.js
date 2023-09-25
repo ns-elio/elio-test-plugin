@@ -30,16 +30,6 @@ Component.register('fast-order-list', {
     computed: {
         columns() {
             return this.getColumns();
-        },
-        itemCriteria() {
-            return new Criteria()
-                .addAssociation('product.parent')
-        },
-        itemName() {
-            if(this.parent) {
-                return this.parent.name;
-            }
-            return this.name;
         }
     },
 
@@ -49,7 +39,7 @@ Component.register('fast-order-list', {
         criteria.setLimit(10);
 
         this.repository = this.repositoryFactory.create('elio_fast_order_line_item');
-        criteria.getAssociation('product.parent')
+        criteria.getAssociation('product')
 
         this.repository.search(criteria, Shopware.Context.api).then((result) => {
             this.items = result;
